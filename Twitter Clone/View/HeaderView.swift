@@ -1,9 +1,9 @@
-//
-//  HeaderView.swift
-//  Twitter Clone
-//
-//  Created by Uladzislau Yatskevich on 10.07.23.
-//
+    //
+    //  HeaderView.swift
+    //  Twitter Clone
+    //
+    //  Created by Uladzislau Yatskevich on 10.07.23.
+    //
 
 import UIKit
 
@@ -32,9 +32,20 @@ class HeaderView: UIView {
 
     private var sectionNumber = 0 {
         didSet{
-            print(sectionNumber)
+            for i in 0..<tabs.count {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) { [weak self] in
+                    self?.stackButton.arrangedSubviews[i].tintColor = i == self?.sectionNumber ? .label : .secondaryLabel
+                    self?.leadingAnchorIndicator[i].isActive = i == self?.sectionNumber ? true : false
+                    self?.trailingAnchorIndicator[i].isActive = i == self?.sectionNumber ? true : false
+                    self?.layoutIfNeeded()
+                }
+            }
         }
     }
+
+    private var leadingAnchorIndicator: [NSLayoutConstraint] = []
+    private var trailingAnchorIndicator: [NSLayoutConstraint] = []
+
 
     private lazy var stackButton: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: tabs)
@@ -46,10 +57,10 @@ class HeaderView: UIView {
     }()
 
     private var tabs: [UIButton] =  ["Tweets","Tweets & Replice", "Media", "Likes"].map { buttonTitle in
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(buttonTitle, for: .normal)
-        button.setTitleColor(.label, for: .normal)
+        button.tintColor = .label
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }
@@ -152,6 +163,13 @@ class HeaderView: UIView {
         return label
     }()
 
+    let indicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -167,6 +185,7 @@ class HeaderView: UIView {
         addSubview(followingsLabel)
         addSubview(followingsCountLabel)
         addSubview(stackButton)
+        addSubview(indicatorView)
 
         setConstraints()
         configureStackButton()
@@ -183,9 +202,16 @@ class HeaderView: UIView {
     }
 
     private func configureStackButton() {
-        for (_,button) in stackButton.arrangedSubviews.enumerated() {
+        for (i,button) in stackButton.arrangedSubviews.enumerated() {
             guard let button = button as? UIButton else {return}
             button.addTarget(self, action: #selector(tabsDidTap(_:)), for: .touchUpInside)
+            if i == sectionNumber {
+                button.tintColor = .label
+            }else {
+                button.tintColor = .secondaryLabel
+            }
+
+
         }
     }
 
@@ -207,6 +233,14 @@ class HeaderView: UIView {
     }
 
     func setConstraints() {
+
+        for i in 0..<tabs.count {
+            let leadingIndicator = indicatorView.leadingAnchor.constraint(equalTo: stackButton.arrangedSubviews[i].leadingAnchor)
+            leadingAnchorIndicator.append(leadingIndicator)
+            let trailingIndicator = indicatorView.trailingAnchor.constraint(equalTo:             stackButton.arrangedSubviews[i].trailingAnchor)
+            trailingAnchorIndicator.append(trailingIndicator)
+        }
+
         NSLayoutConstraint.activate([
             profileAvatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             profileAvatarImageView.centerYAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
@@ -243,7 +277,13 @@ class HeaderView: UIView {
             stackButton.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 25),
             stackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             stackButton.topAnchor.constraint(equalTo: followersLabel.bottomAnchor, constant: 10),
-            stackButton.heightAnchor.constraint(equalToConstant: 30)
+            stackButton.heightAnchor.constraint(equalToConstant: 30),
+
+            indicatorView.topAnchor.constraint(equalTo: stackButton.bottomAnchor),
+            indicatorView.heightAnchor.constraint(equalToConstant: 4),
+            leadingAnchorIndicator[0],
+            trailingAnchorIndicator[0]
+
         ])
     }
 

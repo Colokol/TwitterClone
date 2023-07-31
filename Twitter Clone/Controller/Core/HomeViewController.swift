@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Combine
 
 class HomeViewController: UIViewController {
+
+    private var viewModel = HomeViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
+
 
     private let timeLineTableView: UITableView = {
         let table = UITableView()
@@ -24,6 +30,7 @@ class HomeViewController: UIViewController {
         view.addSubview(timeLineTableView)
 
         configureNavigationBar()
+        bindView()
     }
 
     override func viewWillLayoutSubviews() {
@@ -44,6 +51,41 @@ class HomeViewController: UIViewController {
         let profileImage = UIImage(named: "profile")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(profileDidTap))
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "door.left.hand.open"), style: .plain, target: self, action: #selector(logOutDidTap))
+
+    }
+
+    private func createuserProfile(){
+        let vc = ProfileDataFormViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+
+    private func bindView(){
+        viewModel.$twitterUser
+            .sink { [weak self] user in
+                guard let user = user else { return}
+
+                if user.isFirstEntry == true {
+                    self?.createuserProfile()
+                }
+            }
+            .store(in: &subscriptions)
+    }
+
+    private func checkAuthentication(){
+        if Auth.auth().currentUser == nil {
+            let vc = UINavigationController(rootViewController: PresentViewController())
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+        checkAuthentication()
+        viewModel.retrieveUser()
     }
 
     @objc func profileDidTap() {
@@ -53,8 +95,9 @@ class HomeViewController: UIViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
+    @objc func logOutDidTap() {
+        try? Auth.auth().signOut()
+        checkAuthentication()
     }
 
 }
