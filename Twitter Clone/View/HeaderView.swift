@@ -6,15 +6,20 @@
     //
 
 import UIKit
+import Combine
+import SDWebImage
+import FirebaseAuth
 
 class HeaderView: UIView {
+
+    var viewModel = ProfileDataFormViewModel()
+    var subscriptions: Set<AnyCancellable> = []
 
     private enum SectionsTabs: String {
         case tweets = "Tweets"
         case tweetsAndReply = "Tweets & Replice"
         case media = "Media"
         case likes = "Likes"
-
 
         var index:Int {
             switch self {
@@ -46,7 +51,6 @@ class HeaderView: UIView {
     private var leadingAnchorIndicator: [NSLayoutConstraint] = []
     private var trailingAnchorIndicator: [NSLayoutConstraint] = []
 
-
     private lazy var stackButton: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: tabs)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,10 +81,8 @@ class HeaderView: UIView {
 
     private let profileAvatarImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "profile")
         image.layer.cornerRadius = 30
         image.clipsToBounds = true
-        image.backgroundColor = .green
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -130,7 +132,6 @@ class HeaderView: UIView {
     private let followersLabel:UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
-        label.text = "Followers"
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -139,7 +140,6 @@ class HeaderView: UIView {
     private let followersCountLabel:UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.text = "231"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -148,7 +148,6 @@ class HeaderView: UIView {
     private let followingsLabel:UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
-        label.text = "Following"
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -157,7 +156,6 @@ class HeaderView: UIView {
     private let followingsCountLabel:UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.text = "1M"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -190,10 +188,29 @@ class HeaderView: UIView {
         setConstraints()
         configureStackButton()
 
-        displayNameLabel.text = "Vlad"
-        userNameLabel.text = "@colokol"
-        joinDataLabel.text = "10.08.1995"
-        userBioLabel.text = "Ios developer"
+        bindView()
+    }
+
+    func formatDate(date:Date) -> String{
+        let dateFormated = DateFormatter()
+        dateFormated.dateFormat = "MM yyyy"
+        return dateFormated.string(from: date)
+    }
+
+    func bindView() {
+
+        viewModel.loadDataUser()
+        viewModel.$twitterUser
+            .sink { [weak self] user in
+                guard let user else {return}
+                let joinDate = self?.formatDate(date: user.joinDate) ?? ""
+                self?.displayNameLabel.text = user.displayName
+                self?.userNameLabel.text = user.username
+                self?.joinDataLabel.text = "Joined: \(joinDate)"
+                self?.userBioLabel.text = user.userBio
+                self?.profileAvatarImageView.sd_setImage(with: URL(string: user.avatarPath))
+            }
+            .store(in: &subscriptions)
     }
 
 
@@ -233,7 +250,6 @@ class HeaderView: UIView {
     }
 
     func setConstraints() {
-
         for i in 0..<tabs.count {
             let leadingIndicator = indicatorView.leadingAnchor.constraint(equalTo: stackButton.arrangedSubviews[i].leadingAnchor)
             leadingAnchorIndicator.append(leadingIndicator)
@@ -283,7 +299,6 @@ class HeaderView: UIView {
             indicatorView.heightAnchor.constraint(equalToConstant: 4),
             leadingAnchorIndicator[0],
             trailingAnchorIndicator[0]
-
         ])
     }
 

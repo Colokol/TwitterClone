@@ -136,8 +136,7 @@ class ProfileDataFormViewController: UIViewController {
 
     @objc func submitButtonDidTap() {
         viewModel.setData()
-        print("submit")
-    }
+        self.dismiss(animated: true)    }
 
     @objc func userNameTextFieldEditing() {
         viewModel.username = userNameTextField.text
@@ -161,8 +160,6 @@ class ProfileDataFormViewController: UIViewController {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true)
-
-
     }
 
     func setConstraints() {

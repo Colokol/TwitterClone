@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class ProfileViewController: UIViewController {
 
+    private var viewModel = ProfileDataFormViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     private var statusBarIsHiden = true
 
     private let statusBar: UIView = {

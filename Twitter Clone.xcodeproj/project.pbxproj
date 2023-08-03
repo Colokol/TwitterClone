@@ -38,6 +38,11 @@
 		CE9A51BB2A717CF70032EB47 /* ProfileDataFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51BA2A717CF70032EB47 /* ProfileDataFormViewModel.swift */; };
 		CE9A51BD2A717DBC0032EB47 /* ProfileDataFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51BC2A717DBC0032EB47 /* ProfileDataFormViewController.swift */; };
 		CE9A51BF2A72A6140032EB47 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51BE2A72A6140032EB47 /* StorageManager.swift */; };
+		CE9A51C22A77A20B0032EB47 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CE9A51C12A77A20B0032EB47 /* SDWebImage */; };
+		CE9A51C42A77A20B0032EB47 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE9A51C32A77A20B0032EB47 /* SDWebImageMapKit */; };
+		CE9A51C62A7B7C5F0032EB47 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51C52A7B7C5F0032EB47 /* Tweet.swift */; };
+		CE9A51C82A7B82F10032EB47 /* AddTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51C72A7B82F10032EB47 /* AddTweetViewController.swift */; };
+		CE9A51CA2A7BA94C0032EB47 /* AddTweetsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A51C92A7BA94C0032EB47 /* AddTweetsViewViewModel.swift */; };
 		CEA6963B2A5B213D002E8272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6963A2A5B213D002E8272 /* AppDelegate.swift */; };
 		CEA6963D2A5B213D002E8272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6963C2A5B213D002E8272 /* SceneDelegate.swift */; };
 		CEA6963F2A5B213D002E8272 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA6963E2A5B213D002E8272 /* TabBarController.swift */; };
@@ -67,6 +72,9 @@
 		CE9A51BA2A717CF70032EB47 /* ProfileDataFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataFormViewModel.swift; sourceTree = "<group>"; };
 		CE9A51BC2A717DBC0032EB47 /* ProfileDataFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataFormViewController.swift; sourceTree = "<group>"; };
 		CE9A51BE2A72A6140032EB47 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		CE9A51C52A7B7C5F0032EB47 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		CE9A51C72A7B82F10032EB47 /* AddTweetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTweetViewController.swift; sourceTree = "<group>"; };
+		CE9A51C92A7BA94C0032EB47 /* AddTweetsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTweetsViewViewModel.swift; sourceTree = "<group>"; };
 		CEA696372A5B213D002E8272 /* Twitter Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6963A2A5B213D002E8272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA6963C2A5B213D002E8272 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,10 +92,12 @@
 			files = (
 				CE9A51A42A6832A00032EB47 /* FirebaseStorageCombine-Community in Frameworks */,
 				CE9A519A2A6832A00032EB47 /* FirebaseDatabaseSwift in Frameworks */,
+				CE9A51C42A77A20B0032EB47 /* SDWebImageMapKit in Frameworks */,
 				CE9A519E2A6832A00032EB47 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				CE9A51982A6832A00032EB47 /* FirebaseDatabase in Frameworks */,
 				CE9A51A22A6832A00032EB47 /* FirebaseStorage in Frameworks */,
 				CE9A51922A6832A00032EB47 /* FirebaseAnalyticsSwift in Frameworks */,
+				CE9A51C22A77A20B0032EB47 /* SDWebImage in Frameworks */,
 				CE9A51942A6832A00032EB47 /* FirebaseAuth in Frameworks */,
 				CE9A51902A6832A00032EB47 /* FirebaseAnalytics in Frameworks */,
 				CE9A51962A6832A00032EB47 /* FirebaseAuthCombine-Community in Frameworks */,
@@ -134,6 +144,7 @@
 			children = (
 				CE4C15E42A5BDA5A006D711D /* ProfileViewController.swift */,
 				CE9A51BC2A717DBC0032EB47 /* ProfileDataFormViewController.swift */,
+				CE9A51C72A7B82F10032EB47 /* AddTweetViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -155,6 +166,7 @@
 				CE9A51AC2A6BAAAA0032EB47 /* AuthenticationViewViewModel.swift */,
 				CE9A51B62A7175520032EB47 /* HomeViewViewModel.swift */,
 				CE9A51BA2A717CF70032EB47 /* ProfileDataFormViewModel.swift */,
+				CE9A51C92A7BA94C0032EB47 /* AddTweetsViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -173,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9A51B12A7169A60032EB47 /* TwitterUser.swift */,
+				CE9A51C52A7B7C5F0032EB47 /* Tweet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +254,8 @@
 				CE9A519F2A6832A00032EB47 /* FirebaseFirestoreSwift */,
 				CE9A51A12A6832A00032EB47 /* FirebaseStorage */,
 				CE9A51A32A6832A00032EB47 /* FirebaseStorageCombine-Community */,
+				CE9A51C12A77A20B0032EB47 /* SDWebImage */,
+				CE9A51C32A77A20B0032EB47 /* SDWebImageMapKit */,
 			);
 			productName = "Twitter Clone";
 			productReference = CEA696372A5B213D002E8272 /* Twitter Clone.app */;
@@ -272,6 +287,7 @@
 			mainGroup = CEA6962E2A5B213C002E8272;
 			packageReferences = (
 				CE9A518E2A6832A00032EB47 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CE9A51C02A77A20B0032EB47 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = CEA696382A5B213D002E8272 /* Products */;
 			projectDirPath = "";
@@ -311,10 +327,13 @@
 				CE9A51B52A716DF50032EB47 /* DatabaseManager.swift in Sources */,
 				CE9A51B92A717AB80032EB47 /* CreateProfileViewController.swift in Sources */,
 				CE4C15DF2A5B28D1006D711D /* NotificationViewController.swift in Sources */,
+				CE9A51CA2A7BA94C0032EB47 /* AddTweetsViewViewModel.swift in Sources */,
 				CE4C15D92A5B266F006D711D /* HomeViewController.swift in Sources */,
+				CE9A51C82A7B82F10032EB47 /* AddTweetViewController.swift in Sources */,
 				CEA6963F2A5B213D002E8272 /* TabBarController.swift in Sources */,
 				CE4C15E72A5BE21A006D711D /* HeaderView.swift in Sources */,
 				CE9A51AA2A68587B0032EB47 /* RegisterViewController.swift in Sources */,
+				CE9A51C62A7B7C5F0032EB47 /* Tweet.swift in Sources */,
 				CEA696452A5B213D002E8272 /* Twitter_Clone.xcdatamodeld in Sources */,
 				CEA6963B2A5B213D002E8272 /* AppDelegate.swift in Sources */,
 				CE9A51A82A6839AC0032EB47 /* LoginViewController.swift in Sources */,
@@ -540,6 +559,14 @@
 				minimumVersion = 10.12.0;
 			};
 		};
+		CE9A51C02A77A20B0032EB47 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -597,6 +624,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE9A518E2A6832A00032EB47 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		CE9A51C12A77A20B0032EB47 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE9A51C02A77A20B0032EB47 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		CE9A51C32A77A20B0032EB47 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE9A51C02A77A20B0032EB47 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

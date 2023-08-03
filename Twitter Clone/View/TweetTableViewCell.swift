@@ -17,14 +17,13 @@ protocol TweetTableViewCellDelegate {
 class TweetTableViewCell: UITableViewCell {
 
     static let identificator = "TweetTableViewCell"
-
     private let actionSpacing: CGFloat = 40
 
     var delegate: TweetTableViewCellDelegate?
 
     private let avatarImage: UIImageView = {
         let image = UIImageView(frame:CGRect(x: 0, y: 0, width: 60, height: 60))
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 30
         image.backgroundColor = .red
         image.clipsToBounds = true
@@ -96,7 +95,7 @@ class TweetTableViewCell: UITableViewCell {
 
         avatarImage.image = UIImage(named: "Image")
         nameLabel.text = "Vladislav Green"
-        messageLabel.text = "Priver mir i herePriver mir i herePriver mir i herePriver mir i herePriver mir i herePriver mir i herePriver mir i i herePriver mir i herePriver mir i herePriver mir i herePriver mir i herePriver mir i herePriver mir i "
+        messageLabel.text = ""
         nickNameLabel.text = "@Colokol"
 
         contentView.addSubview(avatarImage)
@@ -114,6 +113,13 @@ class TweetTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    func configureTweets(tweet: Tweet){
+        messageLabel.text = tweet.textTweet
+        avatarImage.sd_setImage(with: URL(string: tweet.author.avatarPath))
+        nameLabel.text = tweet.author.displayName
+        nickNameLabel.text = tweet.author.username
     }
 
     func configureButton() {
@@ -169,7 +175,6 @@ class TweetTableViewCell: UITableViewCell {
 
             shareButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: actionSpacing),
             shareButton.centerYAnchor.constraint(equalTo: replyButton.centerYAnchor),
-
         ])
     }
 

@@ -14,7 +14,7 @@ struct TwitterUser:Codable {
 
     let id: String
 
-    var userName: String = ""
+    var username: String = ""
     var displayName: String = ""
     var avatarPath: String = ""
     var userBio: String = ""

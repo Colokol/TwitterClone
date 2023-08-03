@@ -17,6 +17,7 @@ final class DatabaseManager {
 
     let db = Firestore.firestore()
     let userPath: String = "Users"
+    let tweetsPath: String = "Tweets"
 
     func collectionUsers(add user: User) -> AnyPublisher<Bool,Error> {
         let twitterUser = TwitterUser(from: user)
@@ -45,4 +46,25 @@ final class DatabaseManager {
             .eraseToAnyPublisher()
     }
 
+    func collectionTweets(Add tweets:Tweet) -> AnyPublisher<Bool,Error> {
+        return db.collection(tweetsPath).document(tweets.id).setData(from: tweets)
+            .map { _ in
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func collectionTweets(retriev userID: String) -> AnyPublisher<[Tweet],Error> {
+        return db.collection(tweetsPath).whereField("authorID", isEqualTo: userID).getDocuments()
+            .tryMap(\.documents)
+            .tryMap { snapshot in
+               try snapshot.map { oneSnapshot in
+                   try oneSnapshot.data(as:Tweet.self)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
+
 }
+
